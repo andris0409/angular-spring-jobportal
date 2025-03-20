@@ -1,0 +1,14 @@
+.top-bar {
+    background: linear-gradient(45deg, #2196f3, #21cbf3);
+    color: #fff;
+    padding: 16px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+button[mat-button]:hover {
+    background-color: #003366;
+    color: #fff;
+}
