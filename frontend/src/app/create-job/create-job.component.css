@@ -1,0 +1,38 @@
+.new-job-form {
+    max-width: 800px;
+    margin: 24px auto;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.new-job-form .title {
+    background: linear-gradient(45deg, #2196f3, #21cbf3);
+    color: #fff;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.job-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.job-form mat-form-field {
+    width: 100%;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.btn-apply {
+    background: linear-gradient(45deg, #2196f3, #21cbf3);
+    color: #fff;
+}
