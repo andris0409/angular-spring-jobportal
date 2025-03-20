@@ -1,0 +1,94 @@
+.job-card {
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
+    margin: 24px auto;
+    max-width: 1000px;
+    width: calc(100% - 32px);
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.job-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+mat-card-header {
+    background: linear-gradient(45deg, #2196f3, #21cbf3);
+    color: #fff;
+    padding: 16px;
+}
+
+mat-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+mat-card-subtitle {
+    font-size: 0.9rem;
+    opacity: 0.85;
+}
+
+mat-card-content {
+    padding: 16px;
+}
+
+mat-card-content p {
+    margin: 8px 0;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.job-content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.job-details {
+    flex: 1;
+}
+
+.job-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.job-actions button {
+    min-width: 90px;
+}
+
+.btn-modify {
+    background-color: #43a047;
+    color: #fff;
+}
+
+.btn-delete {
+    background-color: #e53935;
+    color: #fff;
+}
+
+.btn-see-applications {
+    background-color: #8e24aa;
+    color: #fff;
+}
+
+.btn-apply {
+    background-color: #00129A;
+    color: #fff;
+}
+
+.btn-save {
+    background-color: #43a047;
+    color: #fff;
+}
+
+.job-actions button:hover {
+    opacity: 0.9;
+}
+
+.deleting {
+    opacity: 0;
+}

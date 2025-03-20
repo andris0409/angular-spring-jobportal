@@ -1,0 +1,16 @@
+.job-filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 24px;
+    margin-top: 24px;
+}
+
+.job-filter-container mat-form-field {
+    flex: 1;
+    min-width: 280px;
+}

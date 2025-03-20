@@ -1,0 +1,40 @@
+<div *ngIf="job" class="job-detail-container">
+    <mat-card class="job-detail-card">
+        <!-- Header with title and action buttons -->
+        <div class="job-header">
+            <h1 class="job-title">{{ job.title }}</h1>
+            <div class="job-actions">
+                <button mat-raised-button color="primary" (click)="apply()">Apply</button>
+                <button mat-raised-button color="accent" (click)="save()">Save</button>
+            </div>
+        </div>
+
+        <!-- Job properties (location and type) -->
+        <div class="job-properties">
+            <p class="job-property">
+                <mat-icon>location_on</mat-icon>
+                <span>{{ job.location }}</span>
+            </p>
+            <p class="job-property">
+                <mat-icon>schedule</mat-icon>
+                <span>{{ job.type }}</span>
+            </p>
+        </div>
+
+        <!-- Company info with logo -->
+        <div class="job-company">
+            <a [routerLink]="['/company', job.companyId]" class="company-link">
+                <img *ngIf="job.companyLogo" [src]="job.companyLogo" alt="{{ job.company }}" class="company-logo">
+                <span>{{ job.company }}</span>
+            </a>
+        </div>
+
+        <!-- Job description -->
+        <div class="job-description">
+            <p>{{ job.description }}</p>
+        </div>
+        <div class="back-button-container">
+            <button mat-raised-button color="#C3C3C3" (click)="goBack()">Back</button>
+        </div>
+    </mat-card>
+</div>

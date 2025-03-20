@@ -1,0 +1,96 @@
+.job-detail-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 24px;
+    background-color: #f5f5f5;
+}
+
+.job-detail-card {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.back-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+}
+
+.job-title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.job-actions button {
+    margin-left: 8px;
+}
+
+.job-properties {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 16px;
+}
+
+.job-property {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #555;
+}
+
+.job-property mat-icon {
+    margin-right: 4px;
+    color: #2196f3;
+}
+
+.job-company {
+    margin-bottom: 16px;
+}
+
+.company-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #2196f3;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.company-link:hover {
+    color: #1565c0;
+}
+
+.company-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    margin-right: 8px;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.job-description {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+}
