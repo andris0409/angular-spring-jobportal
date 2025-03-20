@@ -1,0 +1,52 @@
+.profile-form {
+    max-width: 600px;
+    margin: 24px auto;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.profile-form .title {
+    background: linear-gradient(45deg, #2196f3, #21cbf3);
+    color: #fff;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.profile-form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.file-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.file-upload label {
+    font-weight: 500;
+    color: #555;
+}
+
+.file-upload input[type=\"file\"] {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
