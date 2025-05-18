@@ -11,7 +11,11 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dto.LoginRequestDto;
 import com.example.demo.model.CustomUserDetails;
 import com.example.demo.model.User;
+import com.example.demo.repository.CompanyProfileRepository;
+import com.example.demo.repository.PersonProfileRepository;
 import com.example.demo.repository.UserRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {
@@ -21,6 +25,12 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private PersonProfileRepository personProfileRepository;
+
+    @Autowired
+    private CompanyProfileRepository companyProfileRepository;
 
     public void createUser(User user) {
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
@@ -54,4 +64,25 @@ public class UserService {
         return user.getRole().toString();
     }
 
+    @Transactional
+    public boolean deleteUser(Long id, Authentication authentication) {
+        User user = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+        if (user.getRole().equals(com.example.demo.model.User.Role.ADMIN)) {
+            Optional<User> userToDeleteOptional = userRepository.findById(id);
+            if (userToDeleteOptional.isEmpty()) {
+                throw new RuntimeException("User not found");
+            }
+            User userToDelete = userToDeleteOptional.get();
+            if (userToDelete.getRole().equals(com.example.demo.model.User.Role.PERSON)) {
+                personProfileRepository.deleteByUserId(id);
+            }
+            if (userToDelete.getRole().equals(com.example.demo.model.User.Role.COMPANY)) {
+                companyProfileRepository.deleteByUserId(id);
+            }
+            userRepository.deleteById(id);
+            return true;
+        } else {
+            throw new RuntimeException("You are not authorized to delete this user");
+        }
+    }
 }
