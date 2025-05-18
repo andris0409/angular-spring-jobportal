@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.ApplicationDto;
+import com.example.demo.dto.PersonProfileDto;
 import com.example.demo.model.Application;
 import com.example.demo.model.CustomUserDetails;
 import com.example.demo.model.Job;
@@ -44,20 +46,14 @@ public class ApplicationController {
     }
 
     @GetMapping("/get/{id}")
-    public Application getApplication(@PathVariable Long id, Authentication authentication) {
+    public ApplicationDto getApplication(@PathVariable Long id, Authentication authentication) {
         User user = ((CustomUserDetails) authentication.getPrincipal()).getUser();
         return applicationService.getApplication(user, id);
     }
 
     @GetMapping("/getMyApplications")
-    public List<Application> getMyApplications(Authentication authentication) {
+    public List<ApplicationDto> getMyApplications(Authentication authentication) {
         User user = ((CustomUserDetails) authentication.getPrincipal()).getUser();
         return applicationService.getMyApplications(user);
-    }
-
-    @GetMapping("/getUsers")
-    public void getUsers(@RequestBody Job job, Authentication authentication) {
-        Long userId = ((CustomUserDetails) authentication.getPrincipal()).getId();
-        applicationService.getUsers(userId, job);
     }
 }

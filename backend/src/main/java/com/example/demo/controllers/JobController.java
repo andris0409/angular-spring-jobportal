@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Role;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.JobDto;
+import com.example.demo.dto.PersonProfileDto;
 import com.example.demo.model.CustomUserDetails;
 import com.example.demo.model.Job;
 import com.example.demo.model.User;
@@ -40,23 +43,23 @@ public class JobController {
     }
 
     @GetMapping("/get/{id}")
-    public Job getJob(@PathVariable Long id) {
+    public JobDto getJob(@PathVariable Long id) {
         return jobService.getJob(id);
     }
 
     @GetMapping("/get-all")
-    public List<Job> getJobs() {
-        return jobService.getJobs();
+    public List<JobDto> getAllJobs() {
+        return jobService.getAllJobs();
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Job> updateJob(@PathVariable Long id, @RequestBody Job updatedJob) {
-        Job job = jobService.updateJob(id, updatedJob);
-        return ResponseEntity.ok(job);
+    public ResponseEntity<String> updateJob(@PathVariable Long id, @RequestBody Job updatedJob) {
+        jobService.updateJob(id, updatedJob);
+        return ResponseEntity.ok("Job updated successfully");
     }
 
     @GetMapping("/get-by-company")
-    public List<Job> getJobsByCompanyId(Authentication authentication) {
+    public List<JobDto> getJobsByCompanyId(Authentication authentication) {
         User user = ((CustomUserDetails) authentication.getPrincipal()).getUser();
         if (user.getRole().equals(User.Role.COMPANY)) {
             return jobService.getJobsByCompanyId(user.getId());
@@ -66,7 +69,7 @@ public class JobController {
     }
 
     @GetMapping("/get-applications/{id}")
-    public List<User> getApplications(@PathVariable Long id) {
+    public List<PersonProfileDto> getApplications(@PathVariable Long id) {
         return jobService.getApplications(id);
     }
 

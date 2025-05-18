@@ -37,6 +37,8 @@ public class Job {
 
     private String category;
 
+    private boolean saved = false;
+
     @ManyToOne
     @JoinColumn(name = "company_id")
     private User company;
