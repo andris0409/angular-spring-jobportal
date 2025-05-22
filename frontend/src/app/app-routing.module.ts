@@ -8,6 +8,11 @@ import { CreateJobComponent } from './create-job/create-job.component';
 import { DynamicProfileComponentComponent } from './dynamic-profile/dynamic-profile-component.component';
 import { ApplicationListComponent } from './application-list/application-list.component';
 import { PersonProfileComponent } from './person-profile/person-profile.component';
+import { SavedJobsComponent } from './saved-jobs/saved-jobs.component';
+import { CompanyProfileComponent } from './company-profile/company-profile.component';
+import { CompanyAdvertComponent } from './company-advert/company-advert.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -19,7 +24,12 @@ const routes: Routes = [
   { path: 'profile', component: DynamicProfileComponentComponent },
   { path: 'application-list/:id', component: ApplicationListComponent },
   { path: 'edit-job/:jobId', component: CreateJobComponent },
-  { path: 'profile/person', component: PersonProfileComponent }
+  { path: 'profile/person', component: PersonProfileComponent },
+  { path: 'profile/company', component: CompanyProfileComponent },
+  { path: 'profile/admin', component: AdminProfileComponent },
+  { path: 'saved-jobs', component: SavedJobsComponent },
+  { path: 'company/:id', component: CompanyAdvertComponent },
+  { path: 'userlist', component: UserListComponent }
 ];
 
 @NgModule({

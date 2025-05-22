@@ -23,15 +23,26 @@ import { RegisterComponent } from './register/register.component';
 import { JobListComponent } from './jobs/job-list/job-list.component';
 import { JobDetailComponent } from './job-detail/job-detail.component';
 import { MatOption } from '@angular/material/core';
-import { ApplicationService } from './job-detail/ApplicationService';
+import { ApplicationService } from './application-item/ApplicationService';
 import { ToastrService } from 'ngx-toastr';
 import { HeaderComponent } from './header/header.component';
 import { CreateJobComponent } from './create-job/create-job.component';
 import { JobItemComponent } from './job-item/job-item.component';
 import { DynamicProfileComponentComponent } from './dynamic-profile/dynamic-profile-component.component';
 import { ApplicationListComponent } from './application-list/application-list.component';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { PersonProfileComponent } from './person-profile/person-profile.component';
+import { SavedJobsComponent } from './saved-jobs/saved-jobs.component';
+import { JobActionComponent } from './job-action/job-action.component';
+import { ApplicationItemComponent } from './application-item/application-item.component';
+import { CompanyProfileComponent } from './company-profile/company-profile.component';
+import { CompanyAdvertComponent } from './company-advert/company-advert.component';
+import { MatList, MatListModule } from '@angular/material/list';
+import { UserListComponent } from './user-list/user-list.component';
+import { PersonProfileCardComponent } from './person-profile-card/person-profile-card.component';
+import { CompanyProfileCardComponent } from './company-profile-card/company-profile-card.component';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import { CommentDialogComponent } from './comment-dialog/comment-dialog.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -45,8 +56,17 @@ import { PersonProfileComponent } from './person-profile/person-profile.componen
     JobItemComponent,
     DynamicProfileComponentComponent,
     ApplicationListComponent,
-    ConfirmDialogComponent,
     PersonProfileComponent,
+    SavedJobsComponent,
+    JobActionComponent,
+    ApplicationItemComponent,
+    CompanyProfileComponent,
+    CompanyAdvertComponent,
+    UserListComponent,
+    PersonProfileCardComponent,
+    CompanyProfileCardComponent,
+    AdminProfileComponent,
+    CommentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +90,8 @@ import { PersonProfileComponent } from './person-profile/person-profile.componen
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatListModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
