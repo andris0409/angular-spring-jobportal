@@ -12,8 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CreateJobComponent implements OnInit {
   jobForm!: FormGroup;
-  typeOptions: string[] = ['Full-time', 'Part-time', 'Contract'];
-  categoryOptions: string[] = ['Engineering', 'Marketing', 'Sales'];
+  typeOptions: string[] = ['Full-time', 'Part-time', 'Contract', 'Intern'];
+  categoryOptions: string[] = ['Engineering', 'Marketing', 'Sales', 'Design', 'HR', 'Finance', 'IT', 'Customer Support', 'FreeLance', 'Other'];
   currentJobId: string | null = null;
 
 
@@ -53,18 +53,18 @@ export class CreateJobComponent implements OnInit {
       const jobData = this.jobForm.value;
       if (this.currentJobId) {
         let id = (Number(this.currentJobId));
-        this.jobService.updateJob(id, jobData).subscribe(
-          () => {
-            this.toastr.success('Job updated successfully!');
+        this.jobService.updateJob(id, jobData,).subscribe(
+          (response: string) => {
+            this.toastr.success(response);
             setTimeout(() => {
               window.history.back();
             }, 500);
-            (error: any) => {
-              const errorMessage = typeof error.error === 'string'
-                ? error.error
-                : error.error?.message || 'Job update failed. Please try again.';
-              this.toastr.error(errorMessage);
-            }
+          },
+          (error: any) => {
+            const errorMessage = typeof error.error === 'string'
+              ? error.error
+              : error.error?.message || 'Job update failed. Please try again.';
+            this.toastr.error(errorMessage);
           }
         );
       } else {

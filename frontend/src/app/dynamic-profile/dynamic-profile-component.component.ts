@@ -25,7 +25,10 @@ export class DynamicProfileComponentComponent implements OnInit {
         this.router.navigate(['/profile/person']);
       } else if (role === 'COMPANY') {
         this.router.navigate(['/profile/company']);
-      } else {
+      } else if (role === 'ADMIN') {
+        this.router.navigate(['/profile/admin']);
+      }
+      else {
         this.router.navigate(['/']);
       }
     });
