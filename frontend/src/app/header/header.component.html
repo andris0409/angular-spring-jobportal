@@ -1,9 +1,17 @@
 <mat-toolbar class="top-bar">
     <span class="title" style="padding: 8px;">{{ title }}</span>
+    <button mat-button (click)="goBack()" class="back-button" *ngIf="router.url !== '/joblist'" matTooltip="Go Back">
+        <mat-icon>arrow_back</mat-icon> Back
+    </button>
     <span class="spacer"></span>
     <ng-container *ngIf="userRole === 'COMPANY'">
         <button mat-button (click)="createJob()">
             <mat-icon>add</mat-icon> Create Job
+        </button>
+    </ng-container>
+    <ng-container *ngIf="userRole === 'ADMIN'">
+        <button mat-button (click)="userList()">
+            <mat-icon>view_agenda</mat-icon> User List
         </button>
     </ng-container>
     <button mat-button (click)="openProfile()" style="margin-left: 32px;">

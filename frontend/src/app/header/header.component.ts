@@ -11,7 +11,7 @@ export class HeaderComponent {
   @Input() title: string = '';
   userRole: string = '';
 
-  constructor(private router: Router) { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
     this.userRole = localStorage.getItem('role') || '';
@@ -23,5 +23,13 @@ export class HeaderComponent {
 
   createJob(): void {
     this.router.navigate(['/create-job']);
+  }
+
+  userList(): void {
+    this.router.navigate(['/userlist']);
+  }
+
+  goBack(): void {
+    window.history.back();
   }
 }
