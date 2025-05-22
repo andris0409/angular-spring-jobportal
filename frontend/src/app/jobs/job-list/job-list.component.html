@@ -1,40 +1,60 @@
 <app-header title="Job offers"></app-header>
-<mat-card class="filter-card">
-    <div class="job-filter-container" [formGroup]="searchForm">
-        <mat-form-field appearance="outline">
-            <mat-label>Search</mat-label>
-            <input matInput placeholder="Company, profession ..." formControlName="searchTerm" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Type</mat-label>
-            <mat-select formControlName="selectedType">
-                <mat-option value="">All</mat-option>
-                <mat-option value="Full-time">Full-time</mat-option>
-                <mat-option value="Part-time">Part-time</mat-option>
-                <mat-option value="Contract">Contract</mat-option>
-                <mat-option value="Internship">Internship</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Location</mat-label>
-            <input matInput placeholder="Enter location" formControlName="selectedLocation" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Category</mat-label>
-            <mat-select formControlName="selectedCategory">
-                <mat-option *ngFor="let category of categories" [value]="category.value">
-                    {{ category.label }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-</mat-card>
 
-<ng-container *ngIf="filteredJobs().length > 0; else noJobs">
-    <app-job-item *ngFor="let job of filteredJobs()" [job]="job" (jobSelected)="goToDetails($event)">
+<form [formGroup]="searchForm" (ngSubmit)="searchJobs(0)">
+    <mat-card class="filter-card">
+        <div class="job-filter-container">
+            <mat-form-field appearance="outline">
+                <mat-label>Search</mat-label>
+                <input matInput placeholder="Company, profession ..." formControlName="searchTerm" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="selectedType">
+                    <mat-option value="">All</mat-option>
+                    <mat-option value="Full-time">Full-time</mat-option>
+                    <mat-option value="Part-time">Part-time</mat-option>
+                    <mat-option value="Contract">Contract</mat-option>
+                    <mat-option value="Internship">Internship</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Location</mat-label>
+                <input matInput placeholder="Enter location" formControlName="selectedLocation" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Category</mat-label>
+                <mat-select formControlName="selectedCategory">
+                    <mat-option *ngFor="let category of categories" [value]="category.value">
+                        {{ category.label }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div class="search-button-wrapper">
+                <button mat-flat-button color="primary" type="submit">Search</button>
+            </div>
+        </div>
+    </mat-card>
+</form>
+
+<ng-container *ngIf="jobs.length > 0; else noJobs">
+    <app-job-item *ngFor="let job of jobs" [job]="job" (jobSelected)="goToDetails($event)">
     </app-job-item>
 </ng-container>
 
 <ng-template #noJobs>
     <div class="no-jobs-message">No jobs found</div>
 </ng-template>
+
+<div class="pagination-controls" *ngIf="totalPages > 1">
+    <button mat-button (click)="searchJobs(currentPage - 1)" [disabled]="currentPage === 0">
+        Prev
+    </button>
+    <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+    <button mat-button (click)="searchJobs(currentPage + 1)" [disabled]="currentPage + 1 >= totalPages">
+        Next
+    </button>
+</div>

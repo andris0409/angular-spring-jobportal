@@ -27,5 +27,16 @@
     font-size: 26px;
     margin: 16px auto 16px auto;
     max-width: 400px;
+}
 
+.search-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.search-button-wrapper button {
+    min-width: 140px;
+    font-weight: bold;
 }

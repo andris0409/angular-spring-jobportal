@@ -75,6 +75,7 @@ export class CompanyProfileComponent {
   }
 
   saveCompany(): void {
+    console.log("saving company");
     if (this.companyForm.valid) {
       const formData = new FormData();
 

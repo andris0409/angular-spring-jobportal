@@ -16,6 +16,9 @@ import { JobData } from './model/jobData';
 export class JobListComponent implements OnInit {
   jobs: JobData[] = [];
   searchForm: FormGroup;
+  currentPage = 0;
+  pageSize = 10;
+  totalPages = 0;
 
   categories = [
     { value: '', label: 'All' },
@@ -31,10 +34,9 @@ export class JobListComponent implements OnInit {
     { value: 'other', label: 'Other' }
   ];
 
-  constructor(private http: HttpClient, private toastservice: ToastrService,
+  constructor(private toastservice: ToastrService,
     private router: Router,
     private jobservice: JobService,
-    private profileService: ProfileService,
     private fb: FormBuilder) {
     this.searchForm = this.fb.group({
       searchTerm: [''],
@@ -48,65 +50,24 @@ export class JobListComponent implements OnInit {
     this.jobservice.jobs$.subscribe(jobs => {
       this.jobs = jobs;
     });
-    const token = localStorage.getItem('token');
-    const role = localStorage.getItem('role');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    if (role === 'COMPANY') {
-      this.jobservice.getJobsByCompany().subscribe({
-        next: (response) => {
-          this.jobs = response;
-        },
-        error: (error) => {
-          this.toastservice.error(error?.error || 'Error while fetching jobs');
-        }
-      });
-    }
-    else if (role === 'PERSON') {
-      this.jobservice.getJobs().subscribe({
-        next: (response) => {
-          this.jobs = response;
-        },
-        error: (error) => {
-          this.toastservice.error(error?.error || 'Error while fetching jobs');
-        }
-      });
-    }
-    else if (role === 'ADMIN') {
-      this.jobservice.getJobs().subscribe({
-        next: (response) => {
-          this.jobs = response;
-        },
-        error: (error) => {
-          this.toastservice.error(error?.error || 'Error while fetching jobs');
-        }
-      });
-    }
-    else {
-      this.toastservice.error('Unauthorized access');
-    }
+    this.searchJobs();
   }
 
+  searchJobs(page = 0): void {
+    this.currentPage = page;
 
+    const filters = this.searchForm.value;
 
-  filteredJobs(): JobData[] {
-    const { searchTerm, selectedType, selectedLocation, selectedCategory } = this.searchForm.value;
-
-    return this.jobs.filter(job => {
-      const termMatch = searchTerm
-        ? job.title.toLowerCase().includes(searchTerm.toLowerCase())
-        : true;
-      const typeMatch = selectedType ? job.type === selectedType : true;
-      const locationMatch = selectedLocation
-        ? job.location.toLowerCase().includes(selectedLocation.toLowerCase())
-        : true;
-      const categoryMatch = selectedCategory
-        ? job.category.toLowerCase().includes(selectedCategory.toLowerCase())
-        : true;
-
-      return termMatch && typeMatch && locationMatch && categoryMatch;
+    this.jobservice.getFilteredJobs(filters, page, this.pageSize).subscribe({
+      next: (response) => {
+        this.jobs = response.content;
+        this.totalPages = response.totalPages;
+      },
+      error: (err) => {
+        this.toastservice.error(err?.error || 'Error while fetching jobs');
+      }
     });
   }
-
 
   goToDetails(jobId: string) {
     this.router.navigate(['/job-details', jobId]);

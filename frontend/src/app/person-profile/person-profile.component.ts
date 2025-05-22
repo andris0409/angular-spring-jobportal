@@ -106,6 +106,10 @@ export class PersonProfileComponent implements OnInit {
     }
   }
 
+  goToApplications() {
+    this.router.navigate(['/user-applications']);
+  }
+
   removeCv() {
     this.selectedCV = null;
     this.existingCVName = null;

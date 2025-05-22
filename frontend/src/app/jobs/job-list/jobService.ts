@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { JobData } from './model/jobData';
@@ -21,12 +21,13 @@ export class JobService {
         });
     }
 
-    refreshJobs(): void {
-        this.http.get<JobData[]>(`${this.baseUrl}/get-all`, { headers: this.getAuthHeaders() })
-            .subscribe(jobs => {
-                this.jobsSubject.next(jobs);
+    refreshJobs(filters: any = {}, page = 0, size = 10, sort = 'title,asc'): void {
+        this.getFilteredJobs(filters, page, size, sort)
+            .subscribe(response => {
+                this.jobsSubject.next(response.content); // or entire response if needed
             });
     }
+
 
     getJobs(): Observable<any> {
         return this.http.get(`${this.baseUrl}/get-all`, { headers: this.getAuthHeaders() });
@@ -57,4 +58,24 @@ export class JobService {
     fetchApplications(id: number): Observable<any> {
         return this.http.get(`${this.baseUrl}/get-applications/${id}`, { headers: this.getAuthHeaders() });
     }
+
+    getFilteredJobs(filters: any = {}, page = 0, size = 10, sort = 'title,asc'): Observable<any> {
+        let params = new HttpParams()
+            .set('page', page)
+            .set('size', size)
+            .set('sort', sort);
+
+        Object.entries(filters).forEach(([key, value]) => {
+            if (value !== undefined && value !== null && value !== '') {
+                params = params.set(key, String(value));
+            }
+        });
+
+        return this.http.get(`${this.baseUrl}/filteredJobs`, {
+            headers: this.getAuthHeaders(),
+            params
+        });
+    }
+
+
 }
