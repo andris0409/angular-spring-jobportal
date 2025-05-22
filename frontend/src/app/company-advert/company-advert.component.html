@@ -1,0 +1,67 @@
+<mat-card class="company-advert">
+    <div class="company-logo" *ngIf="company.logo">
+        <img [src]="'data:image/jpeg;base64,' + company.logo" alt="Company Logo" />
+    </div>
+
+    <mat-card-title class="company-name">{{ company.companyName }}</mat-card-title>
+    <mat-card-subtitle class="company-address">{{ company.address }}</mat-card-subtitle>
+
+    <mat-card-content>
+        <div class="company-info">
+
+            <div class="info-item">
+                <mat-icon>email</mat-icon>
+                <span><strong>Email:</strong></span>
+                <span class="info-value">{{ company.email }}</span>
+            </div>
+
+            <div class="info-item">
+                <mat-icon>phone</mat-icon>
+                <span><strong>Phone:</strong></span>
+                <span class="info-value">{{ company.phone }}</span>
+            </div>
+
+            <div class="info-item">
+                <mat-icon>language</mat-icon>
+                <span><strong>Website:</strong></span>
+                <span class="info-value">
+                    <a [href]="company.website" target="_blank">{{ company.website }}</a>
+                </span>
+            </div>
+
+            <div class="info-item">
+                <mat-icon>info</mat-icon>
+                <span><strong>Description:</strong></span>
+            </div>
+            <p class="company-description">{{ company.description }}</p>
+
+            <div class="comments-title">
+                <mat-icon>comment</mat-icon>
+                <h4>Comments</h4>
+            </div>
+
+            <div *ngIf="(company.comments?.length ?? 0) > 0" class="comment-section">
+                <mat-list>
+                    <mat-list-item *ngFor="let comment of company.comments">
+                        <p matLine>{{ comment }}</p>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+
+            <div class="add-comment-section">
+                <mat-form-field appearance="fill" class="comment-field">
+                    <mat-label>Add a comment</mat-label>
+                    <input matInput [(ngModel)]="newComment" placeholder="Type your comment here..." />
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="submitComment()">Submit</button>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="back-button-container">
+        <button mat-stroked-button (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+            Back
+        </button>
+    </mat-card-actions>
+
+</mat-card>

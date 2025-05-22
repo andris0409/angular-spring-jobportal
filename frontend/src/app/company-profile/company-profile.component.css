@@ -1,0 +1,75 @@
+.profile-form {
+    max-width: 600px;
+    margin: 24px auto;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.profile-form .title {
+    background: linear-gradient(45deg, #2196f3, #21cbf3);
+    color: #fff;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.profile-form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.file-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.file-upload label {
+    font-weight: 500;
+    color: #555;
+}
+
+.file-upload input[type="file"] {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.logo-preview {
+    margin-top: 8px;
+}
+
+.logo-preview img {
+    max-width: 100px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.logo-preview-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-img {
+    max-height: 100px;
+    object-fit: contain;
+}
