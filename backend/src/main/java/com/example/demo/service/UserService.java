@@ -33,7 +33,7 @@ public class UserService {
     private CompanyProfileRepository companyProfileRepository;
 
     public void createUser(User user) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+        if (userRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail()).isPresent()) {
             throw new IllegalArgumentException("User already exist");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));

@@ -26,11 +26,12 @@ public class PersonProfileService {
     @Autowired
     private JobRepository jobRepository;
 
+    @Transactional
     public void saveProfile(User user, PersonProfile personProfile) {
         personProfile.setUser(user);
-
-        if (personProfile.getId() != null) {
-            Optional<PersonProfile> optional = personProfileRepository.findById(personProfile.getId());
+        Long userId = personProfile.getUser().getId();
+        if (userId != null) {
+            Optional<PersonProfile> optional = personProfileRepository.findByUserId(userId);
             if (optional.isPresent()) {
                 PersonProfile existing = optional.get();
                 existing.setFullName(personProfile.getFullName());
@@ -88,9 +89,9 @@ public class PersonProfileService {
                 .orElseThrow(() -> new RuntimeException("Profile must be created first"));
         Job job = jobRepository.findById(jobId).orElseThrow(() -> new RuntimeException("Job not found"));
         if (!profile.getSavedJobs().contains(job)) {
-            job.setSaved(true);
             profile.getSavedJobs().add(job);
             personProfileRepository.save(profile);
+            job.setSaved(true);
             jobRepository.save(job);
         } else {
             throw new RuntimeException("Job already saved");
@@ -102,8 +103,8 @@ public class PersonProfileService {
                 .orElseThrow(() -> new RuntimeException("Profile not found"));
         Job job = jobRepository.findById(jobId).orElseThrow(() -> new RuntimeException("Job not found"));
         profile.getSavedJobs().remove(job);
-        job.setSaved(false);
         personProfileRepository.save(profile);
+        job.setSaved(false);
         jobRepository.save(job);
     }
 
@@ -126,7 +127,7 @@ public class PersonProfileService {
                     dto.setCategory(job.getCategory());
                     dto.setCompanyName(job.getCompany().getUsername());
                     dto.setCompanyId(Long.toString(job.getCompany().getId()));
-                    dto.setSaved(true);
+                    dto.setSaved(job.isSaved());
                     return dto;
                 })
                 .toList();

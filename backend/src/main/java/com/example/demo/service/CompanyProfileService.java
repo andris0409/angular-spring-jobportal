@@ -22,9 +22,11 @@ public class CompanyProfileService {
     @Autowired
     private CompanyProfileRepository companyProfileRepository;
 
+    @Transactional
     public void saveProfile(CompanyProfile companyProfile) {
-        if (companyProfile.getId() != null) {
-            Optional<CompanyProfile> optional = companyProfileRepository.findById(companyProfile.getId());
+        Long userId = companyProfile.getUser().getId();
+        if (userId != null) {
+            Optional<CompanyProfile> optional = companyProfileRepository.findByUserId(userId);
             if (optional.isPresent()) {
                 CompanyProfile existing = optional.get();
                 existing.setCompanyName(companyProfile.getCompanyName());
