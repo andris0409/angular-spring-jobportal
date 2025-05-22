@@ -1,0 +1,13 @@
+<app-header title="Saved jobs"></app-header>
+<ng-container *ngIf="savedJobs.length > 0; else noJobs">
+    <app-job-item *ngFor="let job of savedJobs" [job]="job" (jobSelected)="goToDetails($event)"
+        (jobUnsaved)="loadJobs()">
+    </app-job-item>
+</ng-container>
+
+
+<ng-template #noJobs>
+    <div class="back-button-container">
+        <div class="no-jobs-message">No jobs found</div>
+    </div>
+</ng-template>
