@@ -1,25 +1,27 @@
 .profile-form {
     max-width: 600px;
-    margin: 24px auto;
+    margin: 32px auto;
     padding: 24px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    background-color: #fdfdfd;
 }
 
 .profile-form .title {
-    background: linear-gradient(45deg, #2196f3, #21cbf3);
+    background: linear-gradient(135deg, #1976d2, #64b5f6);
     color: #fff;
     padding: 16px;
-    border-radius: 4px;
-    margin-bottom: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
     text-align: center;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .profile-form-content {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
 }
 
 mat-form-field {
@@ -33,20 +35,44 @@ mat-form-field {
 }
 
 .file-upload label {
-    font-weight: 500;
-    color: #555;
+    font-weight: 600;
+    color: #333;
 }
 
-.file-upload input[type=\"file\"] {
+.file-upload input[type="file"] {
     padding: 8px;
-    border-radius: 4px;
+    border-radius: 6px;
     border: 1px solid #ccc;
-    background-color: #f9f9f9;
+    background-color: #f5f5f5;
+}
+
+.cv-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.quick-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.quick-actions button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    min-width: unset;
 }
 
 
 .form-actions {
     display: flex;
     justify-content: space-between;
-    margin-top: 16px;
+    margin-top: 24px;
 }

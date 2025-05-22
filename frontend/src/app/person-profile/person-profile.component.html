@@ -32,11 +32,37 @@
             <div class="file-upload">
                 <label for="cvUpload">Upload CV (PDF only)</label>
                 <input type="file" id="cvUpload" (change)="onFileSelected($event)" accept="application/pdf">
+                <div class="uploaded-file" *ngIf="selectedCV">
+                    <p>Current CV: <strong>{{ selectedCV.name }}</strong></p>
+                    <div class="cv-actions">
+                        <button mat-stroked-button color="primary" type="button" (click)="downloadCv()">
+                            <mat-icon>download</mat-icon> Download
+                        </button>
+                        <button mat-stroked-button color="warn" type="button" (click)="removeCv()">
+                            <mat-icon>delete</mat-icon> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <button mat-button color="warn" (click)="signOut()">
+                    <mat-icon>logout</mat-icon>
+                    <span>Sign Out</span>
+                </button>
+                <button mat-button color="accent" (click)="showSavedJobs()">
+                    <mat-icon>bookmark</mat-icon>
+                    <span>Saved Jobs</span>
+                </button>
             </div>
 
             <div class="form-actions">
-                <button mat-raised-button type="button" (click)="goBack()">Back</button>
-                <button mat-raised-button color="primary" type="submit">Save</button>
+                <button mat-stroked-button type="button" (click)="goBack()">
+                    <mat-icon>arrow_back</mat-icon> Back
+                </button>
+                <button mat-raised-button color="primary" type="submit">
+                    <mat-icon>save</mat-icon> Save
+                </button>
             </div>
         </form>
     </mat-card-content>
