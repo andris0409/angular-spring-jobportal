@@ -1,0 +1,23 @@
+<mat-card class="job-card">
+    <mat-card-header>
+        <mat-card-title>{{ user.fullName }}</mat-card-title>
+        <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="job-content-container">
+            <div class="job-details">
+                <p><mat-icon>phone</mat-icon> <strong>Phone:</strong> {{ user.phone || 'N/A' }}</p>
+                <p><mat-icon>calendar_today</mat-icon> <strong>Birthdate:</strong> {{ user.birthDate | date:
+                    'yyyy-MM-dd' }}</p>
+            </div>
+
+            <div class="download-section">
+                <button mat-stroked-button color="primary" (click)="downloadCv()">
+                    <mat-icon>download</mat-icon>
+                    Download CV
+                </button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

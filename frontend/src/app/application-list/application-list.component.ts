@@ -24,7 +24,7 @@ export class ApplicationListComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (idParam) {
-        this.id = +idParam; // Convert to number
+        this.id = +idParam;
         this.fetchApplications();
       } else {
         console.log('No id provided');
@@ -33,7 +33,6 @@ export class ApplicationListComponent implements OnInit {
   }
 
   fetchApplications(): void {
-    console.log(this.id);
     this.jobservice.fetchApplications(this.id).subscribe({
       next: (response) => {
         this.applications = response;

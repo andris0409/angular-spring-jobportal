@@ -1,10 +1,13 @@
+<app-header title="Applications"></app-header>
+
 <div *ngIf="applications.length > 0; else noApplications">
-    <ul>
+    <ul class="application-list">
         <li *ngFor="let application of applications">
-            {{ application.username }} - {{ application.email }}
+            <app-application-item [user]="application"></app-application-item>
         </li>
     </ul>
 </div>
+
 <ng-template #noApplications>
-    <p>No applications found.</p>
+    <div class="no-jobs-message">No applications found</div>
 </ng-template>

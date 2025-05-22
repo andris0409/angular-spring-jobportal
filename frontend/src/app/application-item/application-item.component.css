@@ -1,0 +1,42 @@
+.job-card {
+    max-width: 600px;
+    margin: 24px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #fdfdfd;
+    padding: 12px;
+}
+
+mat-card-title {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+mat-card-subtitle {
+    font-size: 14px;
+    color: #666;
+}
+
+.job-content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.job-details p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0;
+    font-size: 15px;
+}
+
+.download-section button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
