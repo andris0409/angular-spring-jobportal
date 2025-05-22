@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.JobDto;
@@ -62,6 +65,11 @@ public class JobService {
         return jobDtos;
     }
 
+    public Page<JobDto> getFilteredJobs(Specification<Job> spec, Pageable pageable) {
+        return jobRepository.findAll(spec, pageable)
+                .map(this::convertToDto);
+    }
+
     public void updateJob(Long id, Job job) {
         Optional<Job> jobOptional = jobRepository.findById(id);
         if (!jobOptional.isPresent()) {
@@ -105,4 +113,10 @@ public class JobService {
         }
         return profiles;
     }
+
+    private JobDto convertToDto(Job job) {
+        JobDto dto = new JobDto(job);
+        return dto;
+    }
+
 }
