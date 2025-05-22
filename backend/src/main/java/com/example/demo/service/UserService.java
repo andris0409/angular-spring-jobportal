@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.LoginRequestDto;
+import com.example.demo.model.Application;
 import com.example.demo.model.CustomUserDetails;
+import com.example.demo.model.Job;
+import com.example.demo.model.PersonProfile;
 import com.example.demo.model.User;
+import com.example.demo.model.User.Role;
+import com.example.demo.repository.ApplicationRepository;
 import com.example.demo.repository.CompanyProfileRepository;
+import com.example.demo.repository.JobRepository;
 import com.example.demo.repository.PersonProfileRepository;
 import com.example.demo.repository.UserRepository;
 
@@ -32,7 +39,19 @@ public class UserService {
     @Autowired
     private CompanyProfileRepository companyProfileRepository;
 
+    @Autowired
+    private ApplicationRepository applicationRepository;
+
+    @Autowired
+    private JobRepository jobRepository;
+
+    @Autowired
+    private PersonProfileService personProfileService;
+
     public void createUser(User user) {
+        if (user.getRole() == Role.ADMIN) {
+            throw new IllegalArgumentException("Admin users cannot be created");
+        }
         if (userRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail()).isPresent()) {
             throw new IllegalArgumentException("User already exist");
         }
@@ -78,6 +97,26 @@ public class UserService {
             }
             if (userToDelete.getRole().equals(com.example.demo.model.User.Role.COMPANY)) {
                 companyProfileRepository.deleteByUserId(id);
+                List<Job> jobs = jobRepository.findByCompanyId(id);
+                for (Job job : jobs) {
+                    List<Application> applications = applicationRepository.findByJobId(job.getId());
+                    for (Application application : applications) {
+                        applicationRepository.delete(application);
+                    }
+                    List<PersonProfile> usersWithJobSaved = personProfileRepository.findAllBySavedJobsContains(job);
+                    for (PersonProfile user1 : usersWithJobSaved) {
+                        user1.getSavedJobs().remove(job);
+                    }
+                    personProfileRepository.saveAll(usersWithJobSaved);
+                    jobRepository.delete(job);
+                }
+            }
+            if (userToDelete.getRole().equals(com.example.demo.model.User.Role.ADMIN)) {
+                throw new RuntimeException("You cannot delete an admin user");
+            }
+            List<Application> applications = applicationRepository.findByUserId(id);
+            for (Application application : applications) {
+                applicationRepository.delete(application);
             }
             userRepository.deleteById(id);
             return true;

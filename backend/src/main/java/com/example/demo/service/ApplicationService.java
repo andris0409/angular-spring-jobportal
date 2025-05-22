@@ -87,7 +87,7 @@ public class ApplicationService {
         }
         List<Application> applications = applicationRepository.findByUser(user);
         if (applications.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No applications found");
+            return List.of();
         } else {
             return applications.stream()
                     .map(application -> new ApplicationDto(application))

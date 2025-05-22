@@ -24,4 +24,8 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
             "WHERE a.user = :user AND a.job = :job")
     boolean existsByUserAndJob(@Param("user") User user, @Param("job") Job job);
 
+    List<Application> findByUserId(Long id);
+
+    List<Application> findByJobId(Long id);
+
 }

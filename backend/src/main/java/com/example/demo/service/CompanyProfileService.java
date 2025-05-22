@@ -35,6 +35,7 @@ public class CompanyProfileService {
                 existing.setAddress(companyProfile.getAddress());
                 existing.setWebsite(companyProfile.getWebsite());
                 existing.setDescription(companyProfile.getDescription());
+                existing.setLogo(companyProfile.getLogo());
                 companyProfile = existing;
             }
         }

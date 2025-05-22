@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.model.Job;
 import com.example.demo.model.PersonProfile;
 import com.example.demo.model.User;
 
@@ -19,4 +20,6 @@ public interface PersonProfileRepository extends JpaRepository<PersonProfile, Lo
     boolean existsByUserId(Long userId);
 
     void deleteByUserId(Long id);
+
+    List<PersonProfile> findAllBySavedJobsContains(Job job);
 }
