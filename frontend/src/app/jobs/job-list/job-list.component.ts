@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { JobService } from './jobService';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ProfileService } from '../../person-profile/profileService';
+import { JobData } from './model/jobData';
 
 @Component({
   selector: 'app-job-list',
@@ -12,10 +14,28 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './job-list.component.css'
 })
 export class JobListComponent implements OnInit {
-  jobs: any[] = [];
+  jobs: JobData[] = [];
   searchForm: FormGroup;
 
-  constructor(private http: HttpClient, private toastservice: ToastrService, private router: Router, private jobservice: JobService, private fb: FormBuilder) {
+  categories = [
+    { value: '', label: 'All' },
+    { value: 'sales', label: 'Sales' },
+    { value: 'marketing', label: 'Marketing' },
+    { value: 'it', label: 'IT / Software Development' },
+    { value: 'finance', label: 'Finance / Accounting' },
+    { value: 'hr', label: 'HR / Recruitment' },
+    { value: 'engineering', label: 'Engineering' },
+    { value: 'design', label: 'Design' },
+    { value: 'customer-support', label: 'Customer Support' },
+    { value: 'freelance', label: 'Freelance' },
+    { value: 'other', label: 'Other' }
+  ];
+
+  constructor(private http: HttpClient, private toastservice: ToastrService,
+    private router: Router,
+    private jobservice: JobService,
+    private profileService: ProfileService,
+    private fb: FormBuilder) {
     this.searchForm = this.fb.group({
       searchTerm: [''],
       selectedType: [''],
@@ -25,6 +45,9 @@ export class JobListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.jobservice.jobs$.subscribe(jobs => {
+      this.jobs = jobs;
+    });
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -34,7 +57,6 @@ export class JobListComponent implements OnInit {
           this.jobs = response;
         },
         error: (error) => {
-          console.log(error);
           this.toastservice.error(error?.error || 'Error while fetching jobs');
         }
       });
@@ -49,12 +71,24 @@ export class JobListComponent implements OnInit {
         }
       });
     }
+    else if (role === 'ADMIN') {
+      this.jobservice.getJobs().subscribe({
+        next: (response) => {
+          this.jobs = response;
+        },
+        error: (error) => {
+          this.toastservice.error(error?.error || 'Error while fetching jobs');
+        }
+      });
+    }
     else {
       this.toastservice.error('Unauthorized access');
     }
   }
 
-  filteredJobs(): any[] {
+
+
+  filteredJobs(): JobData[] {
     const { searchTerm, selectedType, selectedLocation, selectedCategory } = this.searchForm.value;
 
     return this.jobs.filter(job => {

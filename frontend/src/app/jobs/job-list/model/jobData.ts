@@ -1,8 +1,11 @@
 export interface JobData {
+    id: number;
     title: string;
     location: string;
     type: string;
     description: string;
     category: string;
-    company: string;
+    companyName: string;
+    companyId: number;
+    saved: boolean;
 }

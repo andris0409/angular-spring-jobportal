@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JobService } from '../jobs/job-list/jobService';
-import { ApplicationService } from './ApplicationService';
+import { ApplicationService } from '../application-item/ApplicationService';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { ProfileService } from '../person-profile/profileService';
 
 @Component({
   selector: 'app-job-detail',
@@ -16,17 +17,25 @@ export class JobDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private jobService: JobService,
     private applicationService: ApplicationService,
+    private profileService: ProfileService,
     private toastr: ToastrService,
     private location: Location
   ) { }
 
   ngOnInit() {
-    const jobId = this.route.snapshot.paramMap.get('id') || '';
-    this.jobService.getJobById(jobId).subscribe(job => {
-      this.job = job;
+    this.jobService.jobs$.subscribe(jobs => {
+      const jobId = this.route.snapshot.paramMap.get('id');
+      if (jobId) {
+        const job = jobs.find((job: any) => job.id === Number(jobId));
+        if (job) {
+          this.job = job;
+        }
+      }
     });
+    this.jobService.refreshJobs();
   }
 
   apply() {
@@ -43,7 +52,15 @@ export class JobDetailComponent implements OnInit {
   }
 
   save() {
-    // Handle save action
+    const jobId = this.route.snapshot.paramMap.get('id') || "0";
+    this.profileService.saveJob(jobId).subscribe(
+      (response: string) => {
+        this.toastr.success(response);
+      },
+      (error) => {
+        const errorMessage = typeof error.error === 'string' ? error.error : 'Failed to save job.';
+        this.toastr.error(errorMessage)
+      })
   }
 
   goBack() {

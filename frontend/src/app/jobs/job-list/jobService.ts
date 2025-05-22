@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { JobData } from './model/jobData';
 
 @Injectable({
@@ -9,6 +9,9 @@ import { JobData } from './model/jobData';
 export class JobService {
     private baseUrl = 'http://localhost:8080/api/jobs';
 
+    private jobsSubject = new BehaviorSubject<any[]>([]);
+    jobs$ = this.jobsSubject.asObservable();
+
     constructor(private http: HttpClient) { }
 
     private getAuthHeaders(): HttpHeaders {
@@ -16,6 +19,13 @@ export class JobService {
         return new HttpHeaders({
             'Authorization': `Bearer ${token}`
         });
+    }
+
+    refreshJobs(): void {
+        this.http.get<JobData[]>(`${this.baseUrl}/get-all`, { headers: this.getAuthHeaders() })
+            .subscribe(jobs => {
+                this.jobsSubject.next(jobs);
+            });
     }
 
     getJobs(): Observable<any> {
@@ -33,12 +43,11 @@ export class JobService {
     }
 
     addJob(jobData: JobData): Observable<any> {
-        console.log(jobData);
         return this.http.post(`${this.baseUrl}/add`, jobData, { headers: this.getAuthHeaders() });
     }
 
     updateJob(id: number, jobData: JobData): Observable<any> {
-        return this.http.put(`${this.baseUrl}/update/${id}`, jobData, { headers: this.getAuthHeaders() });
+        return this.http.put(`${this.baseUrl}/update/${id}`, jobData, { headers: this.getAuthHeaders(), responseType: 'text' });
     }
 
     deleteJob(id: number): Observable<any> {

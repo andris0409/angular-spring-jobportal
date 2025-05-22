@@ -1,7 +1,7 @@
 <mat-card class="job-card" (click)="handleClick()">
     <mat-card-header>
         <mat-card-title>{{ job.title }}</mat-card-title>
-        <mat-card-subtitle>{{ job.company.username }}</mat-card-subtitle>
+        <mat-card-subtitle>{{ job.companyName }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
         <div class="job-content-container">
@@ -10,18 +10,7 @@
                 <p><strong>Type:</strong> {{ job.type }}</p>
                 <p><strong>Category:</strong> {{ job.category }}</p>
             </div>
-            <div class="job-actions" (click)="$event.stopPropagation()">
-                <ng-container *ngIf="userRole === 'COMPANY'; else personButtons">
-                    <button mat-raised-button class="btn-modify" (click)="onEdit(job.id)">Modify</button>
-                    <button mat-raised-button class="btn-delete" (click)="onDelete(job.id)">Delete</button>
-                    <button mat-raised-button class="btn-see-applications" (click)="onSeeApplications(job.id)">See
-                        Applications</button>
-                </ng-container>
-                <ng-template #personButtons>
-                    <button mat-raised-button class="btn-apply" (click)="onApply(job.id)">Apply</button>
-                    <button mat-raised-button class="btn-save" (click)="onSave(job.id)">Save</button>
-                </ng-template>
-            </div>
+            <app-job-action [job]="job" (jobUnsaved)="handleJobUnsaved($event)"></app-job-action>
         </div>
     </mat-card-content>
 </mat-card>

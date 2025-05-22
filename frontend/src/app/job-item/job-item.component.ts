@@ -2,8 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { JobService } from '../jobs/job-list/jobService';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { JobListComponent } from '../jobs/job-list/job-list.component';
-import { ApplicationService } from '../job-detail/ApplicationService';
+import { ApplicationService } from '../application-item/ApplicationService';
+import { ProfileService } from '../person-profile/profileService';
+import { JobData } from '../jobs/job-list/model/jobData';
 
 @Component({
   selector: 'app-job-item',
@@ -12,8 +13,9 @@ import { ApplicationService } from '../job-detail/ApplicationService';
   styleUrl: './job-item.component.css'
 })
 export class JobItemComponent implements OnInit {
-  @Input() job: any;
+  @Input() job!: JobData;
   @Output() jobSelected = new EventEmitter<any>();
+  @Output() jobUnsaved = new EventEmitter<void>();
 
   userRole: string | null = null;
 
@@ -22,54 +24,18 @@ export class JobItemComponent implements OnInit {
   }
 
   constructor(private jobService: JobService,
+    private profileService: ProfileService,
     private applicationService: ApplicationService,
     private toastService: ToastrService,
-    private jobListComponent: JobListComponent,
     private router: Router) { }
-
 
   handleClick() {
     this.jobSelected.emit(this.job.id);
   }
 
-  onDelete(id: number) {
-    const jobElement = document.getElementById(`job-${id}`);
-    this.jobService.deleteJob(id).subscribe(
-      (response) => {
-        this.toastService.success('Job deleted successfully!');
-        setTimeout(() => {
-          this.jobListComponent.ngOnInit();
-        }, 300);
-      },
-      (error) => {
-        const errorMessage = typeof error.error === 'string'
-          ? error.error
-          : error.error?.message || 'Job deletion failed. Please try again.';
-        this.toastService.error(errorMessage);
-      }
-    );
+  handleJobUnsaved(id: number) {
+    this.jobUnsaved.emit();
   }
 
-  onEdit(id: number) {
-    this.router.navigate(['/edit-job', id]);
-  }
 
-  onSeeApplications(id: number) {
-    this.router.navigate(['/application-list', id]);
-  }
-
-  onApply(id: number) {
-    this.applicationService.addApplication(id).subscribe(
-      (response) => {
-        this.toastService.success('Application submitted successfully!');
-      },
-      (error) => {
-        const errorMessage = typeof error.error === 'string' ? error.error : 'Failed to submit application.';
-        this.toastService.error(errorMessage);
-      }
-    );
-  }
-
-  onSave(id: number) {
-  }
 }

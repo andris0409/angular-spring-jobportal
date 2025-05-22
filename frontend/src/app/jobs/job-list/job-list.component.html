@@ -1,31 +1,40 @@
 <app-header title="Job offers"></app-header>
-<div class="job-filter-container" [formGroup]="searchForm">
-    <mat-form-field appearance="outline">
-        <mat-label>Search</mat-label>
-        <input matInput placeholder="Company, profession ..." formControlName="searchTerm" />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Type</mat-label>
-        <mat-select formControlName="selectedType">
-            <mat-option value="">All</mat-option>
-            <mat-option value="Full-time">Full-time</mat-option>
-            <mat-option value="Part-time">Part-time</mat-option>
-            <mat-option value="Contract">Contract</mat-option>
-            <mat-option value="Internship">Internship</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Location</mat-label>
-        <input matInput placeholder="Enter location" formControlName="selectedLocation" />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Category</mat-label>
-        <mat-select formControlName="selectedCategory">
-            <mat-option value="">All</mat-option>
-            <mat-option value="sales">sales</mat-option>
-        </mat-select>
-    </mat-form-field>
-</div>
+<mat-card class="filter-card">
+    <div class="job-filter-container" [formGroup]="searchForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Search</mat-label>
+            <input matInput placeholder="Company, profession ..." formControlName="searchTerm" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="selectedType">
+                <mat-option value="">All</mat-option>
+                <mat-option value="Full-time">Full-time</mat-option>
+                <mat-option value="Part-time">Part-time</mat-option>
+                <mat-option value="Contract">Contract</mat-option>
+                <mat-option value="Internship">Internship</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Location</mat-label>
+            <input matInput placeholder="Enter location" formControlName="selectedLocation" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="selectedCategory">
+                <mat-option *ngFor="let category of categories" [value]="category.value">
+                    {{ category.label }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</mat-card>
 
-<app-job-item *ngFor="let job of filteredJobs()" [job]="job" (jobSelected)="goToDetails($event)">
-</app-job-item>
+<ng-container *ngIf="filteredJobs().length > 0; else noJobs">
+    <app-job-item *ngFor="let job of filteredJobs()" [job]="job" (jobSelected)="goToDetails($event)">
+    </app-job-item>
+</ng-container>
+
+<ng-template #noJobs>
+    <div class="no-jobs-message">No jobs found</div>
+</ng-template>

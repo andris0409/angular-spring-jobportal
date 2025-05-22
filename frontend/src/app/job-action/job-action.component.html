@@ -1,0 +1,27 @@
+<div class="job-actions" (click)="$event.stopPropagation()">
+
+    <ng-container *ngIf="userRole === 'ADMIN'; else roleBasedButtons">
+        <button mat-raised-button color="warn" class="btn-delete" (click)="onDelete(job.id)">
+            Delete
+        </button>
+    </ng-container>
+
+    <ng-template #roleBasedButtons>
+        <ng-container *ngIf="userRole === 'COMPANY'; else personButtons">
+            <button mat-raised-button class="btn-modify" (click)="onEdit(job.id)">Modify</button>
+            <button mat-raised-button class="btn-delete" (click)="onDelete(job.id)">Delete</button>
+            <button mat-raised-button class="btn-see-applications" (click)="onSeeApplications(job.id)">
+                See Applications
+            </button>
+        </ng-container>
+
+        <ng-template #personButtons>
+            <button mat-raised-button color="primary" (click)="onApply(job.id)">Apply</button>
+            <button mat-raised-button color="accent" class="btn-unsave" *ngIf="job.saved; else saveButton"
+                (click)="onUnsave(job.id)">Unsave</button>
+            <ng-template #saveButton>
+                <button mat-raised-button class="btn-save" (click)="onSave(job.id)">Save</button>
+            </ng-template>
+        </ng-template>
+    </ng-template>
+</div>
