@@ -1,0 +1,40 @@
+.user-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    padding: 16px;
+}
+
+.company-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    padding: 16px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #fafafa;
+    border-radius: 8px;
+}
+
+mat-slide-toggle {
+    font-size: 16px;
+    font-weight: 500;
+    color: #3f51b5;
+}
+
+mat-slide-toggle .mat-slide-toggle-bar {
+    background-color: #ccc;
+}
+
+mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: #3f51b5;
+}

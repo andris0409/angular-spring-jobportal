@@ -1,0 +1,21 @@
+<div class="header-container">
+    <button mat-stroked-button color="#00000" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+    </button>
+
+    <mat-slide-toggle [(ngModel)]="showCompanies" color="primary">
+        {{ showCompanies ? 'Viewing Companies' : 'Viewing People' }}
+    </mat-slide-toggle>
+</div>
+
+<div *ngIf="!showCompanies">
+    <app-person-profile-card *ngFor="let profile of personProfiles" [profile]="profile" (delete)="handleDelete($event)">
+    </app-person-profile-card>
+</div>
+
+<div *ngIf="showCompanies">
+    <app-company-profile-card *ngFor="let company of companyProfiles" [company]="company"
+        (delete)="handleDelete($event)" (viewComments)="openComments($event)">
+    </app-company-profile-card>
+</div>

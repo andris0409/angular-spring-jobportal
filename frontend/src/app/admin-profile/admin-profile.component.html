@@ -1,0 +1,46 @@
+<mat-card class="admin-card">
+    <mat-card-header>
+        <div mat-card-avatar class="admin-avatar">
+            <mat-icon>shield</mat-icon>
+        </div>
+        <mat-card-title>Administrator Profile</mat-card-title>
+        <mat-card-subtitle>Read-Only Access</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <p class="welcome-text">
+            Welcome to the admin panel. This section is reserved for system administrators.
+        </p>
+
+        <mat-divider></mat-divider>
+
+        <div class="info-box">
+            <mat-icon>info</mat-icon>
+            <span>This profile is not editable.</span>
+        </div>
+
+        <div class="info-box">
+            <mat-icon>visibility</mat-icon>
+            <span>You can view and moderate user and job data across the platform.</span>
+        </div>
+
+        <div class="info-box">
+            <mat-icon color="warn">block</mat-icon>
+            <span>Critical actions are restricted to backend operations.</span>
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="back-button-container">
+        <button mat-stroked-button color="primary" (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+            Back to Job List
+        </button>
+    </mat-card-actions>
+    <mat-card-actions class="sign-out-actions">
+        <button mat-raised-button color="warn" (click)="signOut()">
+            <mat-icon>logout</mat-icon>
+            Sign Out
+        </button>
+    </mat-card-actions>
+
+
+</mat-card>
