@@ -13,6 +13,7 @@ import { CompanyProfileComponent } from './company-profile/company-profile.compo
 import { CompanyAdvertComponent } from './company-advert/company-advert.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import { UserApplicationListComponent } from './user-application-list/user-application-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -29,7 +30,8 @@ const routes: Routes = [
   { path: 'profile/admin', component: AdminProfileComponent },
   { path: 'saved-jobs', component: SavedJobsComponent },
   { path: 'company/:id', component: CompanyAdvertComponent },
-  { path: 'userlist', component: UserListComponent }
+  { path: 'userlist', component: UserListComponent },
+  { path: 'user-applications', component: UserApplicationListComponent },
 ];
 
 @NgModule({

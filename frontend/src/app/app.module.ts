@@ -43,6 +43,7 @@ import { CompanyProfileCardComponent } from './company-profile-card/company-prof
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { CommentDialogComponent } from './comment-dialog/comment-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { UserApplicationListComponent } from './user-application-list/user-application-list.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     PersonProfileCardComponent,
     CompanyProfileCardComponent,
     AdminProfileComponent,
-    CommentDialogComponent
+    CommentDialogComponent,
+    UserApplicationListComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,27 @@
+<app-header title="My Applications"></app-header>
+<ng-container *ngIf="appliedJobs.length > 0; else noApplications">
+    <mat-card *ngFor="let item of appliedJobs" class="application-card">
+        <mat-card-title>{{ item.job.title }}</mat-card-title>
+        <mat-card-subtitle>
+            {{ item.job.companyName }} – {{ item.job.location }}
+        </mat-card-subtitle>
+
+        <mat-card-content>
+            <p><strong>Type:</strong> {{ item.job.type }}</p>
+            <p><strong>Category:</strong> {{ item.job.category }}</p>
+            <p><strong>Description:</strong> {{ item.job.description }}</p>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button mat-stroked-button color="warn" (click)="cancelApplication(item.applicationId)">
+                <mat-icon>cancel</mat-icon> Cancel Application
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</ng-container>
+
+<ng-template #noApplications>
+    <div class="no-applications-message">
+        You haven’t applied to any jobs yet.
+    </div>
+</ng-template>

@@ -30,7 +30,11 @@ export class ApplicationService {
     }
 
     deleteApplication(id: number): Observable<any> {
-        return this.http.delete(`${this.baseUrl}/delete/${id}`, { headers: this.getAuthHeaders() });
+        return this.http.delete(`${this.baseUrl}/delete/${id}`, { responseType: 'text', headers: this.getAuthHeaders() });
+    }
+
+    getUserApplications(): Observable<any> {
+        return this.http.get(`${this.baseUrl}/getMyApplications`, { headers: this.getAuthHeaders() });
     }
 
     downloadCv(cv: Blob | File): void {

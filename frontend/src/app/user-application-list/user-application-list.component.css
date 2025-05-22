@@ -1,0 +1,58 @@
+.application-card {
+    margin: 24px auto;
+    max-width: 700px;
+    padding: 16px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.application-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.application-card mat-card-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1976d2;
+}
+
+.application-card mat-card-subtitle {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.application-card mat-card-content p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.application-card mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+.application-card button {
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease;
+}
+
+.application-card button:hover {
+    background-color: #ef9a9a !important;
+}
+
+.no-applications-message {
+    padding: 16px;
+    background-color: #f7f7f7;
+    text-align: center;
+    color: red;
+    font-weight: bold;
+    font-size: 26px;
+    margin: 16px auto 16px auto;
+    max-width: 400px;
+}
